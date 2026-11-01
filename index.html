@@ -340,7 +340,65 @@ footer .mono { font-family: var(--font-mono); font-size: .8125rem; }
   @keyframes grow { from { width: 0; } to { width: 56px; } }
 }
 
+
+/* ===== Glow layer ===== */
+:root { --glow-strong: rgba(35, 70, 240, .45); --glow-warm: rgba(240, 160, 60, .35); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --glow-strong: rgba(142, 164, 255, .55); --glow-warm: rgba(240, 179, 90, .4); } }
+:root[data-theme="dark"] { --glow-strong: rgba(142, 164, 255, .55); --glow-warm: rgba(240, 179, 90, .4); }
+
+.progress { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; height: 3px; width: 100%; z-index: 20; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--accent), var(--signal)); box-shadow: 0 0 12px var(--glow-strong); }
+@supports (animation-timeline: scroll()) { .progress { animation: progress linear both; animation-timeline: scroll(root); } @keyframes progress { to { transform: scaleX(1); } } }
+
+.orbs { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.orb { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .55; }
+.o1 { width: 420px; height: 420px; background: var(--glow-strong); top: -120px; right: -60px; animation: float1 14s ease-in-out infinite alternate; }
+.o2 { width: 320px; height: 320px; background: var(--glow-warm); bottom: -140px; left: 30%; animation: float2 18s ease-in-out infinite alternate; }
+.o3 { width: 240px; height: 240px; background: var(--glow-strong); top: 30%; left: -80px; animation: float1 22s ease-in-out infinite alternate-reverse; }
+@keyframes float1 { to { transform: translate(-80px, 60px) scale(1.15); } }
+@keyframes float2 { to { transform: translate(90px, -50px) scale(.9); } }
+.spotlight { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(360px circle at var(--mx, 70%) var(--my, 30%), var(--glow), transparent 70%); transition: background .1s; }
+
+.h1-accent { text-shadow: 0 0 24px var(--glow-strong), 0 0 60px var(--glow); animation: rise .8s .12s cubic-bezier(.2,.8,.2,1) both, neon 3.2s 1s ease-in-out infinite; }
+@keyframes neon { 50% { text-shadow: 0 0 36px var(--glow-strong), 0 0 90px var(--glow-strong); } }
+.rotator { text-shadow: 0 0 18px var(--glow-strong); }
+.rotator::after { box-shadow: 0 0 12px var(--glow-warm); }
+
+.btn-primary { animation: rise .8s .44s cubic-bezier(.2,.8,.2,1) both, btn-glow 2.6s 1.4s ease-in-out infinite; }
+@keyframes btn-glow { 50% { box-shadow: 0 0 0 6px var(--glow), 0 12px 34px -6px var(--glow-strong); } }
+.btn-ghost:hover { box-shadow: 0 0 22px -4px var(--glow-strong); }
+
+@property --ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+.glow-frame { position: relative; border-radius: 12px; padding: 2px; min-width: 0; background: conic-gradient(from var(--ang), transparent 0 55%, var(--accent) 70%, var(--signal) 82%, transparent 95%); animation: spin 5s linear infinite, rise .9s .3s cubic-bezier(.2,.8,.2,1) both; box-shadow: 0 0 50px -12px var(--glow-strong); }
+.glow-frame .response { animation: none; border-radius: 10px; }
+@keyframes spin { to { --ang: 360deg; } }
+
+.ticker { box-shadow: 0 0 40px -6px var(--glow-strong); position: relative; z-index: 1; }
+.ticker span { text-shadow: 0 0 14px rgba(255, 255, 255, .35); }
+
+.num { background: linear-gradient(180deg, var(--ink) 40%, var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 18px var(--glow)); }
+.stat { transition: background .25s ease; }
+.stat:hover { background: radial-gradient(240px circle at 30% 40%, var(--glow), transparent 70%); }
+
+.section-head h2::after { box-shadow: 0 0 14px var(--glow-strong); background: linear-gradient(90deg, var(--accent), var(--signal)); }
+.skills { box-shadow: 0 0 0 1px var(--line), 0 20px 50px -30px var(--glow-strong); }
+.skill:hover { background: radial-gradient(300px circle at 20% 20%, var(--glow), transparent 70%), var(--surface); }
+.project::before { box-shadow: 0 0 14px var(--glow-strong); height: 3px; background: linear-gradient(90deg, var(--accent), var(--signal)); }
+.project:hover { background: linear-gradient(90deg, var(--glow), transparent 60%); }
+.project:hover h3 { text-shadow: 0 0 20px var(--glow-strong); }
+.focus-item:hover { box-shadow: 0 0 0 1px var(--accent), 0 18px 40px -14px var(--glow-strong); }
+.focus-item:hover code { text-shadow: 0 0 12px var(--glow-strong); }
+.xtabs { box-shadow: 0 24px 60px -36px var(--glow-strong); }
+.xtab[aria-selected="true"] { box-shadow: inset 3px 0 0 var(--accent), inset 40px 0 40px -40px var(--glow-strong); }
+@media (max-width: 760px) { .xtab[aria-selected="true"] { box-shadow: inset 0 -3px 0 var(--accent); } }
+.tags li:hover { box-shadow: 0 0 14px var(--glow-strong); }
+.contact { position: relative; overflow: hidden; }
+.contact::before { content: ""; position: absolute; width: 520px; height: 520px; right: -160px; top: -200px; border-radius: 50%; background: var(--glow-strong); filter: blur(90px); opacity: .5; animation: float1 16s ease-in-out infinite alternate; pointer-events: none; }
+.contact .wrap { position: relative; }
+.shine { filter: drop-shadow(0 0 18px var(--glow-warm)); }
+.links a:hover { text-shadow: 0 0 12px rgba(255, 255, 255, .5); }
+
 @media (prefers-reduced-motion: reduce) {
+  .orbs, .spotlight { display: none; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .ticker-track { flex-wrap: wrap; width: auto; }
   .ticker span[aria-hidden="true"] { display: none; }
@@ -349,6 +407,7 @@ footer .mono { font-family: var(--font-mono); font-size: .8125rem; }
 </head>
 <body>
 
+<div class="progress" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="#top">awais<span>.</span>javed</a>
@@ -366,6 +425,8 @@ footer .mono { font-family: var(--font-mono); font-size: .8125rem; }
 <main id="top">
   <section class="hero">
     <div class="hero-bg" aria-hidden="true"></div>
+    <div class="orbs" aria-hidden="true"><i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i></div>
+    <div class="spotlight" aria-hidden="true"></div>
     <div class="wrap">
       <div class="hero-copy">
         <p class="eyebrow"><span class="pulse" aria-hidden="true"></span>Open to freelance &amp; remote roles</p>
@@ -377,10 +438,10 @@ footer .mono { font-family: var(--font-mono); font-size: .8125rem; }
           <a class="btn btn-ghost" href="resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
         </div>
       </div>
-      <div class="response" role="img" aria-label="Summary shown as an API response: senior backend engineer with 5 years of experience in Java, Kotlin and Spring Boot, Top Rated on Upwork, available for work.">
+      <div class="glow-frame"><div class="response" role="img" aria-label="Summary shown as an API response: senior backend engineer with 5 years of experience in Java, Kotlin and Spring Boot, Top Rated on Upwork, available for work.">
         <div class="bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span><span class="method">GET</span> /api/v1/awais-javed</span><span class="status">200 OK</span></div>
 <pre><span class="ln" style="--i:0">{</span><span class="ln" style="--i:1">  <span class="k">"role"</span>: <span class="s">"Senior Backend Engineer"</span>,</span><span class="ln" style="--i:2">  <span class="k">"experienceYears"</span>: <span class="b">5</span>,</span><span class="ln" style="--i:3">  <span class="k">"core"</span>: [<span class="s">"Java"</span>, <span class="s">"Kotlin"</span>, <span class="s">"Spring"</span>],</span><span class="ln" style="--i:4">  <span class="k">"security"</span>: [<span class="s">"Keycloak"</span>, <span class="s">"JWT"</span>, <span class="s">"RBAC"</span>],</span><span class="ln" style="--i:5">  <span class="k">"integrations"</span>: [<span class="s">"ERP"</span>, <span class="s">"Coupa"</span>, <span class="s">"Kafka"</span>],</span><span class="ln" style="--i:6">  <span class="k">"upwork"</span>: <span class="s">"Top Rated"</span>,</span><span class="ln" style="--i:7">  <span class="k">"availableForWork"</span>: <span class="b">true</span></span><span class="ln" style="--i:8">}</span></pre>
-      </div>
+      </div></div>
     </div>
   </section>
 
@@ -394,8 +455,8 @@ footer .mono { font-family: var(--font-mono); font-size: .8125rem; }
   <section class="stats" aria-label="Highlights">
     <div class="wrap">
       <div class="stat"><span class="num" data-count="5">5</span><span class="unit">+ yrs</span><span class="stat-label">Building backend systems</span></div>
-      <div class="stat"><span class="num" data-count="7">7</span><span class="unit">companies</span><span class="stat-label">Clients in Finland, Iraq, Italy and the Netherlands</span></div>
-      <div class="stat"><span class="num" data-count="90">90</span><span class="unit">%</span><span class="stat-label">Accuracy in the ERP-to-Coupa PO flow</span></div>
+      <div class="stat"><span class="num" data-count="7">7</span><span class="unit">companies</span><span class="stat-label">From trainee to senior engineer and team lead</span></div>
+      <div class="stat"><span class="num" data-count="4">4</span><span class="unit">countries</span><span class="stat-label">Clients in Finland, Iraq, Italy and the Netherlands</span></div>
       <div class="stat"><span class="num stat-word">Top</span><span class="unit">Rated</span><span class="stat-label">Freelancer on Upwork</span></div>
     </div>
   </section>
@@ -836,6 +897,15 @@ footer .mono { font-family: var(--font-mono); font-size: .8125rem; }
       });
     }, { threshold: .6 });
     nums.forEach(function (n) { io.observe(n); });
+  }
+  // Cursor spotlight in hero
+  var hero = document.querySelector('.hero');
+  if (hero && !reduce) {
+    hero.addEventListener('pointermove', function (e) {
+      var r = hero.getBoundingClientRect();
+      hero.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      hero.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
   }
 })();
 </script>
