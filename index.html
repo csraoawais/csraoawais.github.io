@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Awais Javed</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Awais Javed, Java and Spring Boot backend engineer. REST APIs, ERP integrations, secure business applications and database design.">
+<meta property="og:title" content="Awais Javed, Java & Backend Engineer">
+<meta property="og:description" content="Reliable backend systems, REST APIs and business applications with Java and Spring Boot.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one left-aligned column; hero pairs the name with an API "response" card; projects as a ruled index, not a card grid. */
+:root {
+  --bg: #f1f3f2;
+  --surface: #ffffff;
+  --ink: #17212a;
+  --muted: #56636e;
+  --line: #d6dcdc;
+  --accent: #2742b8;
+  --signal: #b5700f;
+  --ok: #1d7a4e;
+  --code-bg: #17212a;
+  --code-fg: #d9e1e8;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1317; --surface: #151c22; --ink: #dfe5ea; --muted: #94a1ac; --line: #26313a;
+    --accent: #93a8ff; --signal: #e3a54b; --ok: #5cc493; --code-bg: #0a0e11; --code-fg: #d9e1e8;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1317; --surface: #151c22; --ink: #dfe5ea; --muted: #94a1ac; --line: #26313a;
+  --accent: #93a8ff; --signal: #e3a54b; --ok: #5cc493; --code-bg: #0a0e11; --code-fg: #d9e1e8;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 1.0625rem/1.65 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.1; }
+p { margin: 0; }
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 720px) {
+  .wrap { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); }
+}
+
+/* Header */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.site-header {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.brand { font-family: var(--font-mono); font-size: .875rem; color: var(--ink); text-decoration: none; font-weight: 500; }
+.brand span { color: var(--accent); }
+.nav { display: flex; gap: 20px; flex-wrap: wrap; }
+.nav a { color: var(--muted); text-decoration: none; font-size: .9375rem; }
+.nav a:hover { color: var(--ink); }
+@media (max-width: 640px) { .nav a:not(.nav-cta) { display: none; } }
+.nav-cta { color: var(--accent) !important; font-weight: 600; }
+
+/* Hero */
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 48px; align-items: center; padding-block: 72px 64px; }
+@media (max-width: 860px) { .hero .wrap { grid-template-columns: minmax(0, 1fr); gap: 36px; padding-block: 48px 40px; } }
+.eyebrow { font-family: var(--font-mono); font-size: .8125rem; letter-spacing: .06em; text-transform: uppercase; color: var(--signal); }
+.hero h1 { font-size: clamp(2.75rem, 7vw, 5rem); font-weight: 800; letter-spacing: -.02em; margin-top: 14px; }
+.hero h1 .role { display: block; font-size: .42em; font-weight: 500; color: var(--muted); letter-spacing: -.01em; margin-top: 12px; }
+.hero .lede { font-size: 1.1875rem; max-width: 34em; margin-top: 22px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 600 .9375rem var(--font-body); text-decoration: none;
+  padding: 11px 18px; border-radius: 6px; border: 1px solid var(--ink);
+}
+.btn-primary { background: var(--ink); color: var(--bg); }
+.btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+.btn-ghost { color: var(--ink); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+.response {
+  background: var(--code-bg); color: var(--code-fg);
+  border-radius: 10px; font: 400 .875rem/1.7 var(--font-mono);
+  overflow-x: auto; min-width: 0;
+  box-shadow: 0 20px 40px -24px rgba(10, 20, 30, .45);
+}
+.response .bar { display: flex; justify-content: space-between; gap: 12px; padding: 12px 18px; border-bottom: 1px solid rgba(217, 225, 232, .12); color: #8b98a3; font-size: .8125rem; white-space: nowrap; }
+.response .method { color: #93a8ff; font-weight: 500; }
+.response .status { color: #5cc493; }
+.response pre { margin: 0; padding: 16px 18px 20px; font: inherit; }
+.k { color: #e3a54b; } .s { color: #b9d7a8; } .b { color: #93a8ff; }
+
+/* Sections */
+section { scroll-margin-top: 72px; }
+.section .wrap { padding-block: 64px; border-top: 1px solid var(--line); }
+.section-head { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 32px; margin-bottom: 36px; align-items: baseline; }
+@media (max-width: 760px) { .section-head { grid-template-columns: minmax(0, 1fr); gap: 10px; } }
+.section-head h2 { font-size: clamp(1.75rem, 3.5vw, 2.25rem); font-weight: 700; letter-spacing: -.01em; }
+.section-head p { color: var(--muted); max-width: 40em; }
+.label { font-family: var(--font-mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.about-body { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 32px; }
+.about-body > div { display: grid; gap: 18px; max-width: 40em; font-size: 1.125rem; }
+@media (max-width: 760px) { .about-body { grid-template-columns: minmax(0, 1fr); } .about-body > .spacer { display: none; } }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.skill { background: var(--surface); padding: 22px 24px; display: grid; gap: 10px; align-content: start; }
+.skill h3 { font-size: 1.0625rem; font-weight: 700; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.tags li { font: 400 .8125rem var(--font-mono); padding: 3px 8px; border-radius: 4px; background: var(--bg); color: var(--ink); border: 1px solid var(--line); }
+
+/* Projects: ruled index */
+.projects { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.project { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 32px; padding-block: 32px; border-bottom: 1px solid var(--line); }
+@media (max-width: 760px) { .project { grid-template-columns: minmax(0, 1fr); gap: 14px; padding-block: 26px; } }
+.project-meta { display: grid; gap: 8px; align-content: start; }
+.project-kind { font-family: var(--font-mono); font-size: .8125rem; color: var(--signal); }
+.project h3 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.01em; }
+.project-body { display: grid; gap: 14px; min-width: 0; }
+.project-body ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; color: var(--ink); }
+.project-body ul li::marker { color: var(--accent); }
+.stack { font: 400 .8125rem/1.6 var(--font-mono); color: var(--muted); }
+
+/* Engineering focus */
+.focus { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 28px 32px; }
+.focus-item { display: grid; gap: 8px; align-content: start; }
+.focus-item code { font: 500 .875rem var(--font-mono); color: var(--accent); }
+.focus-item h3 { font-size: 1.1875rem; font-weight: 700; }
+.focus-item p { color: var(--muted); }
+
+.principles { margin-top: 48px; display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 32px; }
+@media (max-width: 760px) { .principles { grid-template-columns: minmax(0, 1fr); gap: 12px; } }
+.principles ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 44em; }
+.principles li { padding-left: 26px; position: relative; }
+.principles li::before { content: "✓"; position: absolute; left: 0; color: var(--ok); font-weight: 600; }
+
+/* Services */
+.services { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 0 32px; list-style: none; margin: 0; padding: 0; }
+.services li { padding-block: 14px; border-bottom: 1px solid var(--line); }
+
+/* Contact */
+.contact { background: var(--ink); color: var(--bg); }
+.contact .wrap { padding-block: 72px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+@media (max-width: 760px) { .contact .wrap { grid-template-columns: minmax(0, 1fr); padding-block: 56px; } }
+.contact h2 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -.02em; }
+.contact .intro { margin-top: 16px; max-width: 30em; opacity: .85; }
+.badge { display: inline-flex; gap: 8px; align-items: center; margin-top: 22px; font: 500 .8125rem var(--font-mono); padding: 5px 10px; border: 1px solid color-mix(in srgb, var(--bg) 35%, transparent); border-radius: 999px; }
+.badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+.links { list-style: none; margin: 0; padding: 0; border-top: 1px solid color-mix(in srgb, var(--bg) 25%, transparent); }
+.links li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-block: 16px; border-bottom: 1px solid color-mix(in srgb, var(--bg) 25%, transparent); flex-wrap: wrap; }
+.links .label { color: color-mix(in srgb, var(--bg) 65%, transparent); }
+.links a { color: var(--bg); font-weight: 500; text-decoration-color: color-mix(in srgb, var(--bg) 40%, transparent); overflow-wrap: anywhere; }
+.links a:hover { text-decoration-color: var(--bg); }
+.placeholder { font-style: italic; opacity: .7; }
+
+/* Experience tabs */
+.xtabs { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); overflow: hidden; }
+.xtablist { display: flex; flex-direction: column; border-right: 1px solid var(--line); background: var(--bg); }
+.xtab { all: unset; box-sizing: border-box; cursor: pointer; display: grid; gap: 2px; padding: 14px 18px; border-left: 3px solid transparent; border-bottom: 1px solid var(--line); }
+.xtab:last-child { border-bottom: 0; }
+.xtab:hover { background: var(--surface); }
+.xtab:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.xtab[aria-selected="true"] { background: var(--surface); border-left-color: var(--accent); }
+.xtab-co { font-weight: 600; font-size: .9375rem; color: var(--ink); }
+.xtab[aria-selected="true"] .xtab-co { color: var(--accent); }
+.xtab-when { font: 400 .75rem var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.xpanels { min-width: 0; }
+.xpanel { padding: 28px 32px; display: grid; gap: 18px; align-content: start; }
+.xpanel:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.xpanel-head { display: grid; gap: 4px; }
+.xpanel-head .job-when { display: block; }
+.xpanel-head h3 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.01em; }
+.xpanel-head .org { color: var(--accent); font-weight: 600; }
+.xbullets { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; max-width: 46em; }
+.xbullets li::marker { color: var(--accent); }
+.xpanel + .xpanel { border-top: 1px solid var(--line); }
+@media (max-width: 760px) {
+  .xtabs { grid-template-columns: minmax(0, 1fr); }
+  .xtablist { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); scrollbar-width: thin; }
+  .xtab { flex: 0 0 auto; border-left: 0; border-bottom: 3px solid transparent; border-right: 1px solid var(--line); padding: 12px 16px; }
+  .xtab:last-child { border-bottom: 3px solid transparent; border-right: 0; }
+  .xtab[aria-selected="true"], .xtab[aria-selected="true"]:last-child { border-bottom-color: var(--accent); }
+  .xpanel { padding: 22px 18px; }
+}
+
+/* Experience timeline */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; }
+.job { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 32px; padding-block: 26px; border-top: 1px solid var(--line); }
+.job:first-child { border-top-color: var(--ink); }
+@media (max-width: 760px) { .job { grid-template-columns: minmax(0, 1fr); gap: 10px; padding-block: 22px; } }
+.job-when { font: 400 .8125rem/1.6 var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; display: grid; gap: 2px; align-content: start; }
+.job-when .now { color: var(--ok); font-weight: 500; }
+.job-body { display: grid; gap: 10px; min-width: 0; }
+.job-body h3 { font-size: 1.25rem; font-weight: 700; }
+.job-body .org { color: var(--accent); font-weight: 600; }
+.job-body ul { margin: 0; padding-left: 1.1em; display: grid; gap: 5px; }
+.job-body ul li::marker { color: var(--accent); }
+.extras { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 28px 32px; }
+.extras > div { display: grid; gap: 8px; align-content: start; }
+.extras h3 { font-size: 1.0625rem; font-weight: 700; }
+.extras ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; color: var(--muted); }
+.resume-cta { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.resume-cta p { color: var(--muted); }
+
+footer .wrap { padding-block: 28px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--muted); font-size: .875rem; }
+footer .mono { font-family: var(--font-mono); font-size: .8125rem; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">awais<span>.</span>javed</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#focus">Engineering</a>
+      <a class="nav-cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Java · Spring Boot · Microservices · 5 years</p>
+        <h1>Awais Javed<span class="role">Senior Backend Engineer</span></h1>
+        <p class="lede">I build reliable backend systems, REST APIs and business applications with Java, Kotlin and Spring Boot, from ERP and telecom integrations to secure, transaction-safe microservices.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#contact">Work with me</a>
+          <a class="btn btn-ghost" href="resume.pdf" target="_blank" rel="noopener">View résumé (PDF)</a>
+        </div>
+      </div>
+      <div class="response" role="img" aria-label="Summary shown as an API response: Java and Spring Boot backend engineer, Top Rated on Upwork, available for freelance work.">
+        <div class="bar"><span><span class="method">GET</span> /api/engineers/awais-javed</span><span class="status">200 OK</span></div>
+<pre>{
+  <span class="k">"role"</span>: <span class="s">"Senior Backend Engineer"</span>,
+  <span class="k">"core"</span>: [<span class="s">"Java"</span>, <span class="s">"Kotlin"</span>, <span class="s">"Spring Boot"</span>],
+  <span class="k">"security"</span>: [<span class="s">"Keycloak"</span>, <span class="s">"JWT"</span>, <span class="s">"RBAC"</span>],
+  <span class="k">"integrations"</span>: [<span class="s">"ERP"</span>, <span class="s">"Coupa"</span>, <span class="s">"Kafka"</span>],
+  <span class="k">"upwork"</span>: <span class="s">"Top Rated"</span>,
+  <span class="k">"availableForWork"</span>: <span class="b">true</span>
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>About</h2>
+      </div>
+      <div class="about-body">
+        <div class="spacer"></div>
+        <div>
+          <p>I'm a senior backend engineer with five years of experience in Java, Kotlin, Spring Boot, microservices and database-driven business applications. I've worked with telecom operators, ERP platforms and Dutch, Italian and Nordic clients, often leading small teams and working directly with customers. I design and implement maintainable services, integrate external platforms, and solve practical problems in ERP workflows, finance, access control, scheduling and operational management.</p>
+          <p>My approach is pragmatic: keep solutions clear, secure and maintainable, use established framework conventions, and avoid unnecessary abstraction.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="experience">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Experience</h2>
+        <p>Five years and seven companies, from trainee to senior engineer and team lead. Pick a company to see the details.</p>
+      </div>
+      <div class="xtabs">
+        <div class="xtablist" role="tablist" aria-label="Companies">
+          <button class="xtab" role="tab" id="tab-compakt" aria-controls="panel-compakt" aria-selected="true"><span class="xtab-co">Compakt Automatisering B.V.</span><span class="xtab-when">03/2026 – Present</span></button>
+          <button class="xtab" role="tab" id="tab-luna" aria-controls="panel-luna" aria-selected="false" tabindex="-1"><span class="xtab-co">Luna Partner</span><span class="xtab-when">04/2025 – 02/2026</span></button>
+          <button class="xtab" role="tab" id="tab-telenor" aria-controls="panel-telenor" aria-selected="false" tabindex="-1"><span class="xtab-co">Tekrowe Digital · Telenor GSS</span><span class="xtab-when">07/2024 – 04/2025</span></button>
+          <button class="xtab" role="tab" id="tab-brkz" aria-controls="panel-brkz" aria-selected="false" tabindex="-1"><span class="xtab-co">Tekrowe Digital · BRKZ</span><span class="xtab-when">02/2024 – 07/2024</span></button>
+          <button class="xtab" role="tab" id="tab-rootpointers" aria-controls="panel-rootpointers" aria-selected="false" tabindex="-1"><span class="xtab-co">RootPointers</span><span class="xtab-when">08/2022 – 02/2024</span></button>
+          <button class="xtab" role="tab" id="tab-evamp" aria-controls="panel-evamp" aria-selected="false" tabindex="-1"><span class="xtab-co">Evamp &amp; Saanga</span><span class="xtab-when">10/2021 – 08/2022</span></button>
+          <button class="xtab" role="tab" id="tab-funavry" aria-controls="panel-funavry" aria-selected="false" tabindex="-1"><span class="xtab-co">Funavry Technologies</span><span class="xtab-when">08/2021 – 10/2021</span></button>
+        </div>
+        <div class="xpanels">
+        <div class="xpanel" role="tabpanel" id="panel-compakt" aria-labelledby="tab-compakt" tabindex="0">
+          <div class="xpanel-head">
+            <h3>Senior Backend Engineer</h3>
+            <p class="org">Compakt Automatisering B.V.</p>
+            <p class="job-when"><span class="now">03/2026 – Present</span> · <span>Remote</span></p>
+          </div>
+          <ul class="xbullets">
+              <li>Worked on the AMICE integration, submitting meldingen (reports) to LMA and achieving 90% accuracy.</li>
+              <li>Built with Java, Spring Boot and a microservices architecture, using Apache CXF for the AMICE SOAP web service.</li>
+              <li>Built a secured REST API (JWT) with Swagger documentation and Spring Actuator health checks for CI/CD.</li>
+          </ul>
+          <ul class="tags"><li>Java</li><li>Spring Boot</li><li>Microservices</li><li>Apache CXF</li><li>SOAP</li><li>JWT</li><li>Swagger</li><li>Spring Actuator</li></ul>
+        </div>
+        <div class="xpanel" role="tabpanel" id="panel-luna" aria-labelledby="tab-luna" tabindex="0">
+          <div class="xpanel-head">
+            <h3>Senior Backend Engineer</h3>
+            <p class="org">Luna Partner</p>
+            <p class="job-when"><span>04/2025 – 02/2026</span> · <span>Italy (Remote)</span></p>
+          </div>
+          <ul class="xbullets">
+              <li>Development for a large ERP platform, shaping architecture, API design and delivery practices.</li>
+              <li>Built reliable REST services and data pipelines with a strong focus on testing, monitoring and performance.</li>
+              <li>Drove security and access control across the stack, integrating authentication, authorization and role-based policies.</li>
+              <li>Streamlined data modelling and migrations, enabling smooth releases and maintainable schemas.</li>
+              <li>Delivered scalable document and export workflows (PDF and Excel) used across finance and HR modules.</li>
+              <li>Collaborated with stakeholders to turn requirements into clear roadmaps and shipped features end to end.</li>
+          </ul>
+          <ul class="tags"><li>Java</li><li>Spring Boot</li><li>REST APIs</li><li>Role-based access</li><li>PDF / Excel exports</li><li>Data migrations</li></ul>
+        </div>
+        <div class="xpanel" role="tabpanel" id="panel-telenor" aria-labelledby="tab-telenor" tabindex="0">
+          <div class="xpanel-head">
+            <h3>Senior Backend Engineer</h3>
+            <p class="org">Tekrowe Digital · Telenor GSS</p>
+            <p class="job-when"><span>07/2024 – 04/2025</span> · <span>Islamabad (Hybrid)</span></p>
+          </div>
+          <ul class="xbullets">
+              <li>Led the team and developed microservices for Telenor Finland (DNA) using Java, Spring Boot and a microservices architecture.</li>
+              <li>Used Coupa APIs to create purchase orders and invoices automatically from ERP to Coupa for DNA.</li>
+              <li>Worked directly with the customer, gathered requirements and delivered a solution for fetching POs from ERP to Coupa.</li>
+              <li>Built a monitoring solution that corrects failed purchase order migrations in time, achieving 90% accuracy in the PO flow from ERP to Coupa.</li>
+          </ul>
+          <ul class="tags"><li>Java</li><li>Spring Boot</li><li>Microservices</li><li>Coupa APIs</li><li>ERP integration</li></ul>
+        </div>
+        <div class="xpanel" role="tabpanel" id="panel-brkz" aria-labelledby="tab-brkz" tabindex="0">
+          <div class="xpanel-head">
+            <h3>Backend Engineer</h3>
+            <p class="org">Tekrowe Digital · BRKZ</p>
+            <p class="job-when"><span>02/2024 – 07/2024</span> · <span>Islamabad (Hybrid)</span></p>
+          </div>
+          <ul class="xbullets">
+              <li>Developed backend solutions at BRKZ using Kotlin, MongoDB and a microservices architecture.</li>
+              <li>Used Linear, Notion and Datadog for efficient project management and monitoring.</li>
+              <li>Worked with Agile methodologies and took part in the full software development lifecycle.</li>
+              <li>Ensured seamless integration of code changes and error-free releases, and conducted thorough code reviews.</li>
+          </ul>
+          <ul class="tags"><li>Kotlin</li><li>MongoDB</li><li>Microservices</li><li>Datadog</li><li>Linear</li><li>Notion</li></ul>
+        </div>
+        <div class="xpanel" role="tabpanel" id="panel-rootpointers" aria-labelledby="tab-rootpointers" tabindex="0">
+          <div class="xpanel-head">
+            <h3>Java Developer (Team Lead)</h3>
+            <p class="org">RootPointers</p>
+            <p class="job-when"><span>08/2022 – 02/2024</span> · <span>Lahore (Hybrid)</span></p>
+          </div>
+          <ul class="xbullets">
+              <li>Architected microservices for a critical application, optimizing scalability and resilience.</li>
+              <li>Led requirement gathering and documentation, ensuring alignment with stakeholders.</li>
+              <li>Configured the ELK Stack for real-time distributed logging, improving monitoring.</li>
+              <li>Implemented GitLab CI/CD pipelines, Docker Hub and Kubernetes with Helm, streamlining deployment.</li>
+              <li>Contributed to core development, improving system functionality and performance.</li>
+              <li>Managed Docker-based microservice deployments, optimizing resource utilization.</li>
+              <li>Mentored and led a team of three, encouraging innovation and collaboration.</li>
+          </ul>
+          <ul class="tags"><li>Java</li><li>Spring Boot</li><li>ELK</li><li>GitLab CI/CD</li><li>Docker</li><li>Kubernetes</li><li>Helm</li></ul>
+        </div>
+        <div class="xpanel" role="tabpanel" id="panel-evamp" aria-labelledby="tab-evamp" tabindex="0">
+          <div class="xpanel-head">
+            <h3>Associate Software Engineer, Integration</h3>
+            <p class="org">Evamp &amp; Saanga</p>
+            <p class="job-when"><span>10/2021 – 08/2022</span> · <span>Islamabad, PK</span></p>
+          </div>
+          <ul class="xbullets">
+              <li>Delivered the Self-Care Solution project for Korek, a leading telecom company in Iraq.</li>
+              <li>Implemented the ELK stack with Kibana dashboards for proactive issue resolution and process monitoring.</li>
+              <li>Improved application security with critical fixes, including Diffie-Hellman hardening and a force-update feature.</li>
+              <li>Designed and developed scalable components using Java and Spring Boot.</li>
+              <li>Deployed executable JAR files using PuTTY and WinSCP.</li>
+          </ul>
+          <ul class="tags"><li>Java</li><li>Spring Boot</li><li>ELK</li><li>Kibana</li></ul>
+        </div>
+        <div class="xpanel" role="tabpanel" id="panel-funavry" aria-labelledby="tab-funavry" tabindex="0">
+          <div class="xpanel-head">
+            <h3>Java Trainee Engineer</h3>
+            <p class="org">Funavry Technologies</p>
+            <p class="job-when"><span>08/2021 – 10/2021</span> · <span>Islamabad, PK</span></p>
+          </div>
+          <ul class="xbullets">
+              <li>Played a key role in developing the TABOOR QMS (queue management) application using Java and Spring Boot.</li>
+              <li>Integrated Elasticsearch for improved search and indexing.</li>
+              <li>Used MySQL for efficient data storage and retrieval.</li>
+          </ul>
+          <ul class="tags"><li>Java</li><li>Spring Boot</li><li>Elasticsearch</li><li>MySQL</li></ul>
+        </div>
+        </div>
+      </div>
+      <div class="extras">
+        <div>
+          <h3>Education</h3>
+          <ul><li>BS Computer Science, COMSATS University Islamabad (2017 – 2021)</li></ul>
+        </div>
+        <div>
+          <h3>Certifications</h3>
+          <ul><li>Docker for Java Developers (LinkedIn Learning)</li><li>Java Beginner to Advanced (Coursera)</li><li>Spring Boot Master Class (AmigosCode)</li></ul>
+        </div>
+        <div>
+          <h3>Mentorship</h3>
+          <ul><li>Led a Discord community at AT Hub, giving mentorship and career advice to software engineering students.</li><li>Tutored computer science students in Intro to Programming and Spring Boot.</li></ul>
+        </div>
+        <div>
+          <h3>Activities</h3>
+          <ul><li>Senior Member, COMSATS Literary Society (2019 – 2021): organized university events and competed in debating competitions.</li></ul>
+        </div>
+      </div>
+      <div class="resume-cta">
+        <a class="btn btn-primary" href="resume.pdf" target="_blank" rel="noopener">Open full résumé (PDF)</a>
+        <p>Two pages, updated 2026.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="skills">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Skills</h2>
+        <p>The tools I use day to day to design, build and run backend services.</p>
+      </div>
+      <div class="skills">
+        <div class="skill"><h3>Backend</h3><ul class="tags"><li>Java</li><li>Kotlin</li><li>Reactive Java</li><li>Spring Boot</li><li>Spring Web</li><li>Spring WebFlux</li><li>Spring Security</li><li>Spring Data JPA</li><li>Hibernate</li><li>JHipster</li></ul></div>
+        <div class="skill"><h3>API &amp; architecture</h3><ul class="tags"><li>REST APIs</li><li>Microservices</li><li>Service-layer design</li><li>SOAP (Apache CXF)</li><li>Swagger / OpenAPI</li><li>Validation</li></ul></div>
+        <div class="skill"><h3>Databases</h3><ul class="tags"><li>PostgreSQL</li><li>MySQL</li><li>MongoDB</li><li>MS SQL Server</li><li>Data modelling</li><li>Indexing</li><li>Liquibase</li><li>R2DBC</li></ul></div>
+        <div class="skill"><h3>Integration &amp; messaging</h3><ul class="tags"><li>Kafka</li><li>ksqlDB</li><li>ERP integrations</li><li>Coupa APIs</li><li>Elasticsearch</li><li>Postman</li></ul></div>
+        <div class="skill"><h3>Security</h3><ul class="tags"><li>JWT</li><li>Keycloak</li><li>Role-based access</li><li>App-level authorization</li></ul></div>
+        <div class="skill"><h3>Cloud &amp; DevOps</h3><ul class="tags"><li>Docker</li><li>Kubernetes</li><li>Helm</li><li>AWS</li><li>EC2</li><li>GitLab CI/CD</li><li>Maven</li></ul></div>
+        <div class="skill"><h3>Observability &amp; workflow</h3><ul class="tags"><li>ELK Stack</li><li>Datadog</li><li>Spring Actuator</li><li>Jira</li><li>Confluence</li><li>Linear</li><li>Notion</li><li>Agile</li></ul></div>
+        <div class="skill"><h3>Frontend collaboration</h3><ul class="tags"><li>Angular</li><li>API contracts</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <p>Selected experience across enterprise integration, business platforms, scheduling and finance.</p>
+      </div>
+      <ol class="projects">
+        <li class="project">
+          <div class="project-meta"><span class="project-kind">Government integration</span><h3>AMICE integration</h3></div>
+          <div class="project-body">
+            <p>Integration with the AMICE SOAP web service to submit meldingen (reports) to LMA, built at Compakt Automatisering.</p>
+            <ul>
+              <li>SOAP client built with Apache CXF inside a Spring Boot microservice.</li>
+              <li>Submissions reached 90% accuracy.</li>
+              <li>JWT-secured REST API with Swagger docs and Actuator health checks wired into CI/CD.</li>
+            </ul>
+            <p class="stack">Java · Spring Boot · Apache CXF · SOAP · JWT · Swagger</p>
+          </div>
+        </li>
+        <li class="project">
+          <div class="project-meta"><span class="project-kind">ERP integration</span><h3>Telenor Finland (DNA): ERP &amp; Coupa</h3></div>
+          <div class="project-body">
+            <p>Integration workflows connecting an ERP environment with Coupa for purchase orders and invoices.</p>
+            <ul>
+              <li>Purchase order and invoice data integration.</li>
+              <li>Monitoring and troubleshooting PO migration workflows.</li>
+              <li>Monitoring that catches and corrects failed PO migrations, reaching 90% accuracy in the ERP-to-Coupa flow.</li>
+              <li>Led the team and worked directly with the customer on the solution design.</li>
+            </ul>
+            <p class="stack">Java · Spring Boot · Microservices · Coupa APIs</p>
+          </div>
+        </li>
+        <li class="project">
+          <div class="project-meta"><span class="project-kind">Consulting</span><h3>BRKZ</h3></div>
+          <div class="project-body">
+            <p>Backend services for BRKZ, built as a Tekrowe Digital consultant.</p>
+            <ul>
+              <li>Kotlin microservices backed by MongoDB.</li>
+              <li>Monitoring with Datadog, planning in Linear and Notion.</li>
+              <li>Code reviews and release discipline for error-free deployments.</li>
+            </ul>
+            <p class="stack">Kotlin · MongoDB · Microservices · Datadog</p>
+          </div>
+        </li>
+        <li class="project">
+          <div class="project-meta"><span class="project-kind">Telecom</span><h3>Korek Self-Care</h3></div>
+          <div class="project-body">
+            <p>Self-care solution for Korek, a leading telecom operator in Iraq.</p>
+            <ul>
+              <li>Scalable components built with Java and Spring Boot.</li>
+              <li>ELK with Kibana dashboards for proactive issue resolution and process monitoring.</li>
+              <li>Security fixes including Diffie-Hellman hardening and a force-update feature.</li>
+            </ul>
+            <p class="stack">Java · Spring Boot · ELK · Kibana</p>
+          </div>
+        </li>
+        <li class="project">
+          <div class="project-meta"><span class="project-kind">Business platform</span><h3>Gestionale Ufficio</h3></div>
+          <div class="project-body">
+            <p>Backend for a business management application built with JHipster, Spring WebFlux and R2DBC.</p>
+            <ul>
+              <li>REST endpoints and custom backend features alongside generated JHipster code.</li>
+              <li>Keycloak/JWT authorization with category-level access rules.</li>
+              <li>Service workflows for business entities, users, roles and permissions.</li>
+              <li>PDF generation for receipts, delegations, reimbursements and accounting records.</li>
+              <li>Business rules for approvals, signatures, payments and category-specific data.</li>
+            </ul>
+            <p class="stack">Java · JHipster · Spring WebFlux · R2DBC · Keycloak</p>
+          </div>
+        </li>
+        <li class="project">
+          <div class="project-meta"><span class="project-kind">Finance &amp; data model</span><h3>Gestionale Sersar</h3></div>
+          <div class="project-body">
+            <p>Business and financial management on JHipster, with domain modelling and database evolution.</p>
+            <ul>
+              <li>Domain models for suppliers, customers, contacts, payment conditions and VAT rates.</li>
+              <li>PostgreSQL schema changes through Liquibase migrations.</li>
+              <li>Foreign-key and compound indexes planned for query performance.</li>
+              <li>Data migration planning from Microsoft SQL Server to PostgreSQL.</li>
+            </ul>
+            <p class="stack">JHipster · PostgreSQL · Liquibase · MS SQL Server</p>
+          </div>
+        </li>
+        <li class="project">
+          <div class="project-meta"><span class="project-kind">Scheduling</span><h3>GymBooking</h3></div>
+          <div class="project-body">
+            <p>A standalone Spring Boot application for gym and facility scheduling.</p>
+            <ul>
+              <li>Role-based access for administrators and users.</li>
+              <li>Facilities, gyms, spaces and per-user facility access.</li>
+              <li>Recurring events with master events and occurrence exceptions.</li>
+              <li>Timezone-aware queries with UTC timestamp handling.</li>
+              <li>Database constraints such as uniqueness for active season slots.</li>
+            </ul>
+            <p class="stack">Spring Boot · Spring Security · JPA · PostgreSQL</p>
+          </div>
+        </li>
+        <li class="project">
+          <div class="project-meta"><span class="project-kind">Finance</span><h3>Financial transaction workflows</h3></div>
+          <div class="project-body">
+            <p>Backend design for financial operations where correctness and consistency come first.</p>
+            <ul>
+              <li>Account opening, deposits and withdrawals with clear transaction boundaries.</li>
+              <li>Optimistic and pessimistic locking, version-based concurrency with <code>@Version</code>.</li>
+              <li>Idempotency to guard against duplicate operations.</li>
+              <li>Isolation levels and consistency for ledger-style workflows.</li>
+            </ul>
+            <p class="stack">Spring · @Transactional · JPA locking</p>
+          </div>
+        </li>
+        <li class="project">
+          <div class="project-meta"><span class="project-kind">Solution design</span><h3>Student attendance system</h3></div>
+          <div class="project-body">
+            <p>A backend solution concept for school attendance using NFC/RFID identification and parent notifications.</p>
+            <ul>
+              <li>School dashboard for attendance and absence monitoring.</li>
+              <li>NFC-enabled student check-in at arrival and departure.</li>
+              <li>Parent notifications for arrival, departure and absence.</li>
+              <li>APIs serving both the school dashboard and a parent mobile app.</li>
+            </ul>
+            <p class="stack">REST APIs · NFC/RFID · Notifications</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="focus">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Engineering focus</h2>
+        <p>The parts of a backend I treat as requirements, not afterthoughts.</p>
+      </div>
+      <div class="focus">
+        <div class="focus-item"><code>@PreAuthorize</code><h3>Security</h3><p>Keycloak and JWT, role-based access and authorization enforced in the application layer.</p></div>
+        <div class="focus-item"><code>@Transactional</code><h3>Transactions</h3><p>Deliberate transaction boundaries and propagation so business operations succeed or fail as a whole.</p></div>
+        <div class="focus-item"><code>@Version</code><h3>Concurrency</h3><p>Optimistic and pessimistic locking and idempotent operations for money and shared resources.</p></div>
+        <div class="focus-item"><code>changeSet</code><h3>Database design</h3><p>Relational modelling, constraints, indexes and versioned Liquibase migrations.</p></div>
+      </div>
+      <div class="principles">
+        <p class="label">How I work</p>
+        <ul>
+          <li>Straightforward, readable implementations over unnecessary complexity.</li>
+          <li>Custom application code kept separate from generated framework code where practical.</li>
+          <li>Clear service boundaries and consistent API contracts.</li>
+          <li>Authorization, data integrity and transaction safety as core requirements.</li>
+          <li>Java streams, lambdas and records where they improve clarity.</li>
+          <li>Maintainable solutions that fit realistic delivery timelines.</li>
+        </ul>
+      </div>
+      <div class="principles">
+        <p class="label">What I can build</p>
+        <ul class="services">
+          <li>Java and Spring Boot backend applications</li>
+          <li>REST APIs and microservice systems</li>
+          <li>Business management and ERP-style applications</li>
+          <li>Third-party and enterprise integrations</li>
+          <li>Secure applications with JWT and Keycloak</li>
+          <li>PostgreSQL design and Liquibase migrations</li>
+          <li>Scheduling, booking and recurring-event systems</li>
+          <li>Financial workflows with concurrency control</li>
+          <li>Backends for Angular or mobile apps</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div>
+        <h2>Let's build your backend.</h2>
+        <p class="intro">I take on backend and full-stack collaboration work involving Java, Spring Boot, API development, integrations and business applications.</p>
+        <a class="badge" href="https://www.upwork.com/freelancers/~01e2f31ab4a8782b05" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Top Rated on Upwork</a>
+      </div>
+      <ul class="links">
+        <li><span class="label">Email</span><a href="mailto:awaisjaved089@gmail.com">awaisjaved089@gmail.com</a></li>
+        <li><span class="label">LinkedIn</span><a href="https://www.linkedin.com/in/csraoawais/" target="_blank" rel="noopener">linkedin.com/in/csraoawais</a></li>
+        <li><span class="label">GitHub</span><a href="https://github.com/csraoawais" target="_blank" rel="noopener">github.com/csraoawais</a></li>
+        <li><span class="label">Résumé</span><a href="resume.pdf" target="_blank" rel="noopener">Download PDF</a></li>
+        <li><span class="label">Upwork</span><a href="https://www.upwork.com/freelancers/~01e2f31ab4a8782b05" target="_blank" rel="noopener">View Upwork profile</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Awais Javed</span>
+    <span class="mono">Built with plain HTML &amp; CSS</span>
+  </div>
+</footer>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+<script>
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.xtab'));
+  if (!tabs.length) return;
+  document.documentElement.classList.add('js');
+  function select(t, focus) {
+    tabs.forEach(function (b) {
+      var on = b === t;
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      b.tabIndex = on ? 0 : -1;
+      document.getElementById(b.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (focus) t.focus();
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(t, false); });
+    t.addEventListener('keydown', function (ev) {
+      var k = ev.key, n = null;
+      if (k === 'ArrowDown' || k === 'ArrowRight') n = tabs[(i + 1) % tabs.length];
+      if (k === 'ArrowUp' || k === 'ArrowLeft') n = tabs[(i - 1 + tabs.length) % tabs.length];
+      if (k === 'Home') n = tabs[0];
+      if (k === 'End') n = tabs[tabs.length - 1];
+      if (n) { ev.preventDefault(); select(n, true); }
+    });
+  });
+  select(tabs[0], false);
+})();
+</script>
+</body>
+</html>
