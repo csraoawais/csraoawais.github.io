@@ -19,7 +19,9 @@
   --ink: #17212a;
   --muted: #56636e;
   --line: #d6dcdc;
-  --accent: #2742b8;
+  --accent: #2346f0;
+  --on-accent: #ffffff;
+  --glow: rgba(35, 70, 240, .18);
   --signal: #b5700f;
   --ok: #1d7a4e;
   --code-bg: #17212a;
@@ -32,13 +34,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #0e1317; --surface: #151c22; --ink: #dfe5ea; --muted: #94a1ac; --line: #26313a;
-    --accent: #93a8ff; --signal: #e3a54b; --ok: #5cc493; --code-bg: #0a0e11; --code-fg: #d9e1e8;
+    --accent: #8ea4ff; --on-accent: #0b1020; --glow: rgba(142, 164, 255, .16); --signal: #f0b35a; --ok: #5cc493; --code-bg: #0a0e11; --code-fg: #d9e1e8;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0e1317; --surface: #151c22; --ink: #dfe5ea; --muted: #94a1ac; --line: #26313a;
-  --accent: #93a8ff; --signal: #e3a54b; --ok: #5cc493; --code-bg: #0a0e11; --code-fg: #d9e1e8;
+  --accent: #8ea4ff; --on-accent: #0b1020; --glow: rgba(142, 164, 255, .16); --signal: #f0b35a; --ok: #5cc493; --code-bg: #0a0e11; --code-fg: #d9e1e8;
   color-scheme: dark;
 }
 
@@ -230,6 +232,119 @@ section { scroll-margin-top: 72px; }
 
 footer .wrap { padding-block: 28px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--muted); font-size: .875rem; }
 footer .mono { font-family: var(--font-mono); font-size: .8125rem; }
+
+/* ===== Motion & loud layer ===== */
+.hero { position: relative; overflow: hidden; }
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    radial-gradient(600px 320px at 85% 20%, var(--glow), transparent 70%),
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: auto, 48px 48px, 48px 48px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+  opacity: .6;
+  animation: grid-drift 24s linear infinite;
+}
+@keyframes grid-drift { to { background-position: 0 0, 48px 48px, 48px 48px; } }
+.hero .wrap { position: relative; z-index: 1; padding-block: 88px 72px; }
+.hero h1 { font-size: clamp(3.5rem, 11vw, 7.5rem); line-height: .92; letter-spacing: -.045em; margin-top: 18px; }
+.h1-line { display: inline-block; animation: rise .8s cubic-bezier(.2,.8,.2,1) both; }
+.h1-line + .h1-line { animation-delay: .12s; }
+.h1-accent { color: var(--accent); }
+.hero .role { font: 500 clamp(1.05rem, 2.2vw, 1.35rem) var(--font-body); color: var(--muted); margin-top: 18px; animation: rise .8s .24s cubic-bezier(.2,.8,.2,1) both; }
+.hero .lede { font: 600 clamp(1.4rem, 3vw, 2rem)/1.25 var(--font-display); letter-spacing: -.01em; margin-top: 22px; max-width: 22em; animation: rise .8s .34s cubic-bezier(.2,.8,.2,1) both; }
+.hero .actions { animation: rise .8s .44s cubic-bezier(.2,.8,.2,1) both; }
+.rotator { color: var(--accent); white-space: nowrap; position: relative; }
+.rotator::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 3px; background: var(--signal); border-radius: 2px; }
+.caret { display: inline-block; width: 3px; height: .9em; background: var(--accent); margin-left: 3px; vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--ok); }
+.pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--ok); position: relative; }
+.pulse::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--ok); animation: ping 1.8s ease-out infinite; }
+@keyframes ping { from { transform: scale(.5); opacity: .9; } to { transform: scale(1.6); opacity: 0; } }
+
+.btn { font-size: 1rem; padding: 13px 22px; transition: transform .18s ease, background .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); box-shadow: 0 10px 24px -10px var(--accent); }
+.btn-primary:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); transform: translateY(-2px); }
+.btn-ghost:hover { transform: translateY(-2px); }
+.arrow { display: inline-block; transition: transform .18s ease; }
+.btn:hover .arrow { transform: translateX(4px); }
+
+.response { animation: rise .9s .3s cubic-bezier(.2,.8,.2,1) both; transform-origin: center; transition: transform .3s ease, box-shadow .3s ease; }
+.response:hover { transform: translateY(-4px) rotate(-.4deg); box-shadow: 0 30px 60px -24px rgba(10, 20, 30, .55); }
+.response .bar { align-items: center; }
+.dots { display: inline-flex; gap: 6px; }
+.dots i { width: 10px; height: 10px; border-radius: 50%; background: #3a4650; }
+.dots i:nth-child(1) { background: #e0605a; } .dots i:nth-child(2) { background: #e3a54b; } .dots i:nth-child(3) { background: #5cc493; }
+.response pre .ln { display: block; animation: type-in .35s calc(.7s + var(--i) * .11s) both; }
+@keyframes type-in { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 520px) { .response { font-size: .75rem; } .response .bar { padding: 10px 14px; } .response pre { padding: 14px; } }
+
+/* Ticker */
+.ticker { background: var(--accent); color: var(--on-accent); overflow: hidden; border-block: 1px solid var(--accent); }
+.ticker-track { display: flex; width: max-content; gap: 0; animation: marquee 38s linear infinite; padding-block: 14px; }
+.ticker:hover .ticker-track { animation-play-state: paused; }
+.ticker span { font: 700 clamp(1rem, 2vw, 1.25rem) var(--font-display); letter-spacing: .01em; padding-inline: 22px; white-space: nowrap; display: inline-flex; align-items: center; gap: 22px; }
+.ticker span::after { content: "✦"; font-size: .7em; opacity: .7; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* Stats */
+.stats .wrap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; padding-block: 0; }
+@media (max-width: 760px) { .stats .wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.stat { padding: 34px 20px 30px 0; display: grid; grid-template-columns: auto 1fr; align-items: baseline; column-gap: 6px; row-gap: 6px; border-bottom: 1px solid var(--line); }
+.stat + .stat { padding-left: 20px; border-left: 1px solid var(--line); }
+@media (max-width: 760px) { .stat:nth-child(3) { border-left: 0; padding-left: 0; } }
+.num { font: 800 clamp(2.5rem, 6vw, 4rem)/1 var(--font-display); letter-spacing: -.03em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.unit { font: 700 1.125rem var(--font-display); color: var(--accent); }
+.stat-label { grid-column: 1 / -1; color: var(--muted); font-size: .9375rem; }
+
+/* Section headings: louder, with a swipe underline */
+.section-head h2 { font-size: clamp(2.25rem, 5.5vw, 3.5rem); font-weight: 800; letter-spacing: -.03em; position: relative; padding-bottom: 10px; }
+.section-head h2::after { content: ""; position: absolute; left: 0; bottom: 0; height: 5px; width: 56px; background: var(--accent); border-radius: 3px; }
+
+/* Hover life */
+.skill { transition: background .2s ease; }
+.skill:hover { background: var(--bg); }
+.tags li { transition: background .15s ease, color .15s ease, border-color .15s ease, transform .15s ease; }
+.tags li:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); transform: translateY(-2px); }
+.project { position: relative; transition: background .25s ease, padding-left .25s ease; }
+.project::before { content: ""; position: absolute; left: 0; top: -1px; height: 2px; width: 0; background: var(--accent); transition: width .45s cubic-bezier(.2,.8,.2,1); }
+.project:hover::before { width: 100%; }
+.project:hover h3 { color: var(--accent); }
+.project h3 { transition: color .2s ease; }
+.focus-item { padding: 22px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.focus-item:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 16px 30px -18px var(--accent); }
+.focus-item code { font-size: 1rem; }
+.xpanel:not([hidden]) { animation: panel-in .35s cubic-bezier(.2,.8,.2,1); }
+@keyframes panel-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.xtab { transition: background .15s ease; }
+
+/* Contact shine */
+.contact h2 { font-size: clamp(2.5rem, 7vw, 4.5rem); line-height: 1; }
+.shine { background: linear-gradient(90deg, var(--signal), #ffd89a, var(--signal)); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 4s linear infinite; }
+@keyframes shine { to { background-position: -200% 0; } }
+
+/* Scroll-driven reveals (only where supported; content is visible otherwise) */
+@supports (animation-timeline: view()) {
+  .section-head, .project, .skill, .focus-item, .job, .xtabs, .extras > div, .stat {
+    animation: rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+  .section-head h2::after { animation: grow linear both; animation-timeline: view(); animation-range: entry 10% entry 60%; }
+  @keyframes grow { from { width: 0; } to { width: 56px; } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .ticker-track { flex-wrap: wrap; width: auto; }
+  .ticker span[aria-hidden="true"] { display: none; }
+}
 </style>
 </head>
 <body>
@@ -250,27 +365,38 @@ footer .mono { font-family: var(--font-mono); font-size: .8125rem; }
 
 <main id="top">
   <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
     <div class="wrap">
-      <div>
-        <p class="eyebrow">Java · Spring Boot · Microservices · 5 years</p>
-        <h1>Awais Javed<span class="role">Senior Backend Engineer</span></h1>
-        <p class="lede">I build reliable backend systems, REST APIs and business applications with Java, Kotlin and Spring Boot, from ERP and telecom integrations to secure, transaction-safe microservices.</p>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="pulse" aria-hidden="true"></span>Open to freelance &amp; remote roles</p>
+        <h1><span class="h1-line">Awais</span> <span class="h1-line h1-accent">Javed.</span></h1>
+        <p class="role">Senior Backend Engineer · Java &amp; Spring Boot</p>
+        <p class="lede">I build <span class="rotator" data-words="REST APIs|microservices|ERP integrations|secure auth with Keycloak|transaction-safe workflows"><span class="rotator-text">REST APIs</span><span class="caret" aria-hidden="true"></span></span><br>that hold up in production.</p>
         <div class="actions">
-          <a class="btn btn-primary" href="#contact">Work with me</a>
-          <a class="btn btn-ghost" href="resume.pdf" target="_blank" rel="noopener">View résumé (PDF)</a>
+          <a class="btn btn-primary" href="#contact">Hire me <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
         </div>
       </div>
-      <div class="response" role="img" aria-label="Summary shown as an API response: Java and Spring Boot backend engineer, Top Rated on Upwork, available for freelance work.">
-        <div class="bar"><span><span class="method">GET</span> /api/engineers/awais-javed</span><span class="status">200 OK</span></div>
-<pre>{
-  <span class="k">"role"</span>: <span class="s">"Senior Backend Engineer"</span>,
-  <span class="k">"core"</span>: [<span class="s">"Java"</span>, <span class="s">"Kotlin"</span>, <span class="s">"Spring Boot"</span>],
-  <span class="k">"security"</span>: [<span class="s">"Keycloak"</span>, <span class="s">"JWT"</span>, <span class="s">"RBAC"</span>],
-  <span class="k">"integrations"</span>: [<span class="s">"ERP"</span>, <span class="s">"Coupa"</span>, <span class="s">"Kafka"</span>],
-  <span class="k">"upwork"</span>: <span class="s">"Top Rated"</span>,
-  <span class="k">"availableForWork"</span>: <span class="b">true</span>
-}</pre>
+      <div class="response" role="img" aria-label="Summary shown as an API response: senior backend engineer with 5 years of experience in Java, Kotlin and Spring Boot, Top Rated on Upwork, available for work.">
+        <div class="bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span><span class="method">GET</span> /api/v1/awais-javed</span><span class="status">200 OK</span></div>
+<pre><span class="ln" style="--i:0">{</span><span class="ln" style="--i:1">  <span class="k">"role"</span>: <span class="s">"Senior Backend Engineer"</span>,</span><span class="ln" style="--i:2">  <span class="k">"experienceYears"</span>: <span class="b">5</span>,</span><span class="ln" style="--i:3">  <span class="k">"core"</span>: [<span class="s">"Java"</span>, <span class="s">"Kotlin"</span>, <span class="s">"Spring"</span>],</span><span class="ln" style="--i:4">  <span class="k">"security"</span>: [<span class="s">"Keycloak"</span>, <span class="s">"JWT"</span>, <span class="s">"RBAC"</span>],</span><span class="ln" style="--i:5">  <span class="k">"integrations"</span>: [<span class="s">"ERP"</span>, <span class="s">"Coupa"</span>, <span class="s">"Kafka"</span>],</span><span class="ln" style="--i:6">  <span class="k">"upwork"</span>: <span class="s">"Top Rated"</span>,</span><span class="ln" style="--i:7">  <span class="k">"availableForWork"</span>: <span class="b">true</span></span><span class="ln" style="--i:8">}</span></pre>
       </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-label="Technologies I work with">
+    <div class="ticker-track">
+      <span>Java</span><span>Spring Boot</span><span>Kotlin</span><span>Microservices</span><span>Kafka</span><span>PostgreSQL</span><span>MongoDB</span><span>Keycloak</span><span>JWT</span><span>Docker</span><span>Kubernetes</span><span>AWS</span><span>Liquibase</span><span>ELK</span><span>Datadog</span><span>Apache CXF</span>
+      <span aria-hidden="true">Java</span><span aria-hidden="true">Spring Boot</span><span aria-hidden="true">Kotlin</span><span aria-hidden="true">Microservices</span><span aria-hidden="true">Kafka</span><span aria-hidden="true">PostgreSQL</span><span aria-hidden="true">MongoDB</span><span aria-hidden="true">Keycloak</span><span aria-hidden="true">JWT</span><span aria-hidden="true">Docker</span><span aria-hidden="true">Kubernetes</span><span aria-hidden="true">AWS</span><span aria-hidden="true">Liquibase</span><span aria-hidden="true">ELK</span><span aria-hidden="true">Datadog</span><span aria-hidden="true">Apache CXF</span>
+    </div>
+  </div>
+
+  <section class="stats" aria-label="Highlights">
+    <div class="wrap">
+      <div class="stat"><span class="num" data-count="5">5</span><span class="unit">+ yrs</span><span class="stat-label">Building backend systems</span></div>
+      <div class="stat"><span class="num" data-count="7">7</span><span class="unit">companies</span><span class="stat-label">Clients in Finland, Iraq, Italy and the Netherlands</span></div>
+      <div class="stat"><span class="num" data-count="90">90</span><span class="unit">%</span><span class="stat-label">Accuracy in the ERP-to-Coupa PO flow</span></div>
+      <div class="stat"><span class="num stat-word">Top</span><span class="unit">Rated</span><span class="stat-label">Freelancer on Upwork</span></div>
     </div>
   </section>
 
@@ -624,7 +750,7 @@ footer .mono { font-family: var(--font-mono); font-size: .8125rem; }
   <section class="contact" id="contact">
     <div class="wrap">
       <div>
-        <h2>Let's build your backend.</h2>
+        <h2>Let's build your <span class="shine">backend.</span></h2>
         <p class="intro">I take on backend and full-stack collaboration work involving Java, Spring Boot, API development, integrations and business applications.</p>
         <a class="badge" href="https://www.upwork.com/freelancers/~01e2f31ab4a8782b05" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Top Rated on Upwork</a>
       </div>
@@ -672,6 +798,45 @@ footer .mono { font-family: var(--font-mono); font-size: .8125rem; }
     });
   });
   select(tabs[0], false);
+})();
+</script>
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Rotating "I build ..." words with a typing effect
+  var rot = document.querySelector('.rotator');
+  if (rot && !reduce) {
+    var words = rot.getAttribute('data-words').split('|');
+    var el = rot.querySelector('.rotator-text');
+    var w = 0, c = words[0].length, del = false;
+    (function tick() {
+      var word = words[w];
+      if (!del && c === word.length) { del = true; return setTimeout(tick, 1800); }
+      if (del && c === 0) { del = false; w = (w + 1) % words.length; word = words[w]; }
+      c += del ? -1 : 1;
+      el.textContent = word.slice(0, c);
+      setTimeout(tick, del ? 35 : 70);
+    })();
+  }
+  // Count-up stats when they scroll into view
+  var nums = document.querySelectorAll('.num[data-count]');
+  if (!reduce && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        var n = e.target, end = +n.getAttribute('data-count'), t0 = null;
+        function step(t) {
+          if (!t0) t0 = t;
+          var p = Math.min((t - t0) / 1100, 1);
+          n.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: .6 });
+    nums.forEach(function (n) { io.observe(n); });
+  }
 })();
 </script>
 </body>
